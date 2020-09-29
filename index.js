@@ -51,10 +51,52 @@ class Board {
             || ( pos.y > next.y && this.getFreePosition(pos).down )
             || ( pos.y < next.y && this.getFreePosition(pos).up   ) ) {
                 console.log("Piece moved from board");
-                this.board[pos.x][pos.y].move(next);
+                this.board[pos.x][pos.y].move(this.board[next.x][next.y]);
+
         } else {
             console.log("Can't Move the piece");
             return;
+        }
+    }
+
+
+    isOpponent(curr, next){
+        // For debugging
+        if(this.board[next.x][next.y].curr.color !== this.board[curr.x][curr.y].curr.color){
+            console.log("Enemy Spotted");
+        } else {
+            console.log("Not an Enemy");
+        }
+
+        return (this.board[next.x][next.y].curr.color !== this.board[curr.x][curr.y].curr.color);
+    }
+
+    attack(curr, next){
+        if(this.board[next.x][next.y].isFree()){
+            console.log("Can't attack empty space");
+            return;
+        } else if (this.isOpponent(curr, next)){
+            // we win
+            if( this.board[curr.x][curr.y].curr.rank /*our piece*/ > /*opponent piece*/ this.board[next.x][next.y].curr.rank ){
+                this.board[next.x][next.y].curr.isAlive = false;
+                this.board[next.x][next.y].curr = null;
+                this.move(curr, next);
+                console.log("We win");
+            } // we lose
+            else if (this.board[curr.x][curr.y].curr.rank < this.board[next.x][next.y].curr.rank){
+                this.board[curr.x][curr.y].curr.isAlive = false;
+                this.board[curr.x][curr.y].curr = null;
+                console.log("We lose");
+            } else {
+                // tie
+                this.board[next.x][next.y].curr.isAlive = false;
+                this.board[next.x][next.y].curr = null;
+                this.board[curr.x][curr.y].curr.isAlive = false;
+                this.board[curr.x][curr.y].curr = null;
+                console.log("Tie, both pieces die");
+            }
+        } else {
+            console.log("Can't attack your army");
         }
     }
 
@@ -103,6 +145,7 @@ class Piece {
         this.name = null;
         this.pos = pos;
         this.color = color;
+        this.isAlive = true;
     }
 
     move(next_pos){
@@ -122,9 +165,14 @@ var next = {
     x:1,
     y:3
 };
-var piece = new Piece(1, pos, "red");
+var piece = new Piece(2, pos, "red");
+var piece2 = new Piece(1, next, "blue")
 board.addPiece(pos, piece);
-console.log(board.board[1][2]);
+board.addPiece(next, piece2);
+// console.log(board.board[0][2]);
 board.move(pos, next);
-console.log(board.board[1][2].isFree());
-console.log(board.board[1][3].isFree());
+// console.log(board.board[0][2].isFree());
+// console.log(board.board[1][3].isFree());
+// console.log(board.board[1][3].curr);
+
+board.attack(pos, next);

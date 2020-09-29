@@ -46,13 +46,14 @@ class Board {
 
     move(pos, next){
         //var piece = this.board[pos.x][pos.y].curr;
-        if (   ( pos.x > next.x && this.getFreePosition(pos).left )
-            || ( pos.x < next.x && this.getFreePosition(pos).right)
-            || ( pos.y > next.y && this.getFreePosition(pos).down )
-            || ( pos.y < next.y && this.getFreePosition(pos).up   ) ) {
-                console.log("Piece moved from board");
-                this.board[pos.x][pos.y].move(this.board[next.x][next.y]);
-
+        if(this.board[pos.x][pos.y].curr.movable){
+            if (   ( pos.x > next.x && this.getFreePosition(pos).left )
+                || ( pos.x < next.x && this.getFreePosition(pos).right)
+                || ( pos.y > next.y && this.getFreePosition(pos).down )
+                || ( pos.y < next.y && this.getFreePosition(pos).up   ) ) {
+                    console.log("Piece moved from board");
+                    this.board[pos.x][pos.y].move(this.board[next.x][next.y]);
+            }
         } else {
             console.log("Can't Move the piece");
             return;
@@ -71,6 +72,8 @@ class Board {
         return (this.board[next.x][next.y].curr.color !== this.board[curr.x][curr.y].curr.color);
     }
 
+
+    // TODO: change attack logic
     attack(curr, next){
         if(this.board[next.x][next.y].isFree()){
             console.log("Can't attack empty space");
@@ -129,14 +132,22 @@ class Square {
     }
 
     move(next){
-        next.curr = this.curr;
-        this.curr.move(next);
-        this.curr = null;
-        console.log("piece moved from square");
+        if(this.curr.movable){
+            next.curr = this.curr;
+            this.curr.move(next);
+            this.curr = null;
+            console.log("piece moved from square");
+        } else {
+            return;
+        }
+
     }
 
 }
 
+///////////////////////////////////////////////////////////////////
+// PIECES
+//////////////////////////////////////////////////////////////////
 
 class Piece {
     constructor(rank, pos, color) {
@@ -146,12 +157,141 @@ class Piece {
         this.pos = pos;
         this.color = color;
         this.isAlive = true;
+        this.movable = false;
     }
 
     move(next_pos){
-        this.pos = next_pos;
-        console.log("piece moved from piece");
+        if(this.movable){
+            this.pos = next_pos;
+            console.log("piece moved from piece");
+        } else {
+            return;
+        }
     }
+}
+
+class Marshal extends Piece {
+    constructor(){
+        super();
+        this.id = '10';
+        this.name = 'marshal';
+        this.rank = 10;
+    }
+}
+
+class General extends Piece {
+    constructor(){
+        super();
+        this.id = '9';
+        this.name = 'general';
+        this.rank = 10;
+    }
+}
+
+class Colonel extends Piece {
+    constructor(){
+        super();
+        this.id = '8';
+        this.name = 'colonel';
+        this.rank = 8;
+    }
+}
+
+class Major extends Piece {
+    constructor(){
+        super();
+        this.id = '7';
+        this.name = 'major';
+        this.rank = 7;
+    }
+}
+
+class Captain extends Piece {
+    constructor(){
+        super();
+        this.id = '6';
+        this.name = 'captain';
+        this.rank = 8;
+    }
+}
+
+class Lieutenant extends Piece {
+    constructor(){
+        super();
+        this.id = '5';
+        this.name = 'lieutenant';
+        this.rank = 5;
+    }
+}
+
+class Sergeant extends Piece {
+    constructor() {
+        super();
+        this.id = '4';
+        this.name = 'sergeant';
+        this.rank = 4;
+    }
+}
+
+class Miner extends Piece {
+    constructor(){
+        super();
+        this.id = '3';
+        this.name = 'miner';
+        this.rank = 3;
+    }
+}
+
+class Scout extends Piece {
+    constructor(){
+        super();
+        this.id = '2';
+        this.name = 'scout';
+        this.rank = 2;
+    }
+}
+
+class Spy extends Piece {
+    constructor(){
+        super();
+        this.id = 'S';
+        this.name = 'spy';
+        this.rank = 1;
+    }
+}
+
+class Bomb extends Piece {
+    constructor(){
+        super();
+        this.id = 'B';
+        this.name = 'bomb';
+        this.rank = 0;
+        this.movable = false;
+    }
+}
+
+class Flag extends Piece {
+    constructor(){
+        super();
+        this.id = 'F';
+        this.name = 'flag';
+        this.rank = 0;
+        this.movable = false;
+    }
+}
+
+
+class Player {
+    constructor(name, color) {
+        this.name = name;
+        this.color = color;
+        this.livePieces = [];
+        this.deadPieces = [];
+    }
+
+    // startGame(){
+    //     this.livePieces = []
+    // }
 }
 
 

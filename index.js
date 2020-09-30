@@ -2,6 +2,7 @@ class Board {
     constructor() {
         this.board = [];
         this.lakeArea = [];
+        this.gameOn = true;
     }
 
     //INITIALIZING THE GAME
@@ -75,16 +76,42 @@ class Board {
 
     // TODO: change attack logic
     attack(curr, next){
-        if(this.board[next.x][next.y].isFree()){
+
+        if(this.board[next.x][next.y].isFree()){\
+
             console.log("Can't attack empty space");
+
             return;
+
         } else if (this.isOpponent(curr, next)){
+
             // we win
-            if( this.board[curr.x][curr.y].curr.rank /*our piece*/ > /*opponent piece*/ this.board[next.x][next.y].curr.rank ){
+            if(this.board[curr.x][curr.y].curr.id === 'S'){
                 this.board[next.x][next.y].curr.isAlive = false;
                 this.board[next.x][next.y].curr = null;
                 this.move(curr, next);
                 console.log("We win");
+                return;
+            } else if (this.board[next.x][next.y].curr.id === 'F'){
+                this.board[curr.x][curr.y].curr.isAlive = false;
+                this.board[curr.x][curr.y].curr = null;
+                console.log("We lose");
+                this.gameOn = false;
+                return;
+            } else if(this.board[next.x][next.y].curr.id === 'B'){
+                this.board[next.x][next.y].curr.isAlive = false;
+                this.board[next.x][next.y].curr = null;
+                this.board[curr.x][curr.y].curr.isAlive = false;
+                this.board[curr.x][curr.y].curr = null;
+                console.log("Boom");
+            }
+            if( this.board[curr.x][curr.y].curr.rank /*our piece*/ > /*opponent piece*/ this.board[next.x][next.y].curr.rank ){
+
+                this.board[next.x][next.y].curr.isAlive = false;
+                this.board[next.x][next.y].curr = null;
+                this.move(curr, next);
+                console.log("We win");
+
             } // we lose
             else if (this.board[curr.x][curr.y].curr.rank < this.board[next.x][next.y].curr.rank){
                 this.board[curr.x][curr.y].curr.isAlive = false;
@@ -158,6 +185,10 @@ class Piece {
         this.color = color;
         this.isAlive = true;
         this.movable = false;
+    }
+
+    setPos(pos){
+        this.pos = pos;
     }
 
     move(next_pos){
@@ -287,11 +318,13 @@ class Player {
         this.color = color;
         this.livePieces = [];
         this.deadPieces = [];
+        this.point = 0;
     }
 
-    // startGame(){
-    //     this.livePieces = []
-    // }
+    startGame(startPieces){
+        this.livePieces = startPieces;
+
+    }
 }
 
 

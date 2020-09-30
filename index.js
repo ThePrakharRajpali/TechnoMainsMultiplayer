@@ -98,13 +98,65 @@ class Board {
                 console.log("We lose");
                 this.gameOn = false;
                 return;
-            } else if(this.board[next.x][next.y].curr.id === 'B'){
+            } else if(this.board[next.x][next.y].curr.id === 'B' && this.board[curr.x][curr.y].curr.rank !== 3){
                 this.board[next.x][next.y].curr.isAlive = false;
                 this.board[next.x][next.y].curr = null;
                 this.board[curr.x][curr.y].curr.isAlive = false;
                 this.board[curr.x][curr.y].curr = null;
+
+
+                /* Blast radius*/
+                if(next.x + 1 < 10 && next.y + 1 < 12){
+                    this.board[next.x + 1][next.y + 1].curr.isAlive = false;
+                    this.board[next.x + 1][next.y + 1].curr = null;
+                }
+
+                if(next.x + 1 < 10){
+                    this.board[next.x + 1][next.y    ].curr.isAlive = false;
+                    this.board[next.x + 1][next.y    ].curr = null;
+                }
+
+                if(next.x + 1 < 10 && next.y - 1 > 0){
+                    this.board[next.x + 1][next.y - 1].curr.isAlive = false;
+                    this.board[next.x + 1][next.y - 1].curr = null;
+                }
+
+                if(next.x - 1 > 0 && next.y + 1 < 12){
+                    this.board[next.x - 1][next.y + 1].curr.isAlive = false;
+                    this.board[next.x - 1][next.y + 1].curr = null;
+                }
+
+                if(next.x - 1 > 0){
+                    this.board[next.x - 1][next.y    ].curr.isAlive = false;
+                    this.board[next.x - 1][next.y    ].curr = null;
+                }
+
+                if(next.x - 1 > 0 && next.y - 1> 0){
+                    this.board[next.x - 1][next.y - 1].curr.isAlive = false;
+                    this.board[next.x - 1][next.y - 1].curr = null;
+                }
+
+                if(next.y - 1 > 0){
+                    this.board[next.x    ][next.y - 1].curr.isAlive = false;
+                    this.board[next.x    ][next.y - 1].curr = null;
+                }
+
+                if(next.y + 1 < 12){
+                    this.board[next.x    ][next.y + 1].curr.isAlive = false;
+                    this.board[next.x    ][next.y + 1].curr = null;
+                }
+
                 console.log("Boom");
+                return;
+            } else if(this.board[next.x][next.y].curr.id === 'B' && this.board[curr.x][curr.y].curr.rank === 3){
+                this.board[next.x][next.y].curr.isAlive = false;
+                this.board[next.x][next.y].curr = null;
+                this.move(curr, next);
+                console.log("We win");
+                return;
             }
+
+
             if( this.board[curr.x][curr.y].curr.rank /*our piece*/ > /*opponent piece*/ this.board[next.x][next.y].curr.rank ){
 
                 this.board[next.x][next.y].curr.isAlive = false;

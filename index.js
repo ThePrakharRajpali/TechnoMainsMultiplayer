@@ -1,10 +1,19 @@
 class Board {
-    constructor() {
+    constructor(player1, player2) {
         this.board = [];
         this.lakeArea = [];
         this.gameOn = true;
+        this.player1 = player1;
+        this.player2 = player2;
     }
 
+    initializePieces(player){
+        for(var i=0; i<40; i++){
+            var square = this.selectSquare();
+            player.livePieces.push(this.setPiece(square, piece, player));
+        }
+    }
+    // TODO: selectSquare, setPiece
     //INITIALIZING THE GAME
     setupGame(){
         for(var i=0; i<12; i++){
@@ -15,6 +24,8 @@ class Board {
             }
             this.board.push(width);
         }
+
+
         console.log("Game set up done");
     }
 
@@ -182,6 +193,20 @@ class Board {
         }
     }
 
+    this.selectSquare(){
+        //addelement using document
+        // get pos:
+        var square = this.board[pos.x][pos.y] ;
+        return square;
+    }
+
+    this.setPiece(square, piece player){
+        square.curr = piece;
+        piece.pos = square.pos;
+        piece.color = player.color;
+        return piece;
+    }
+
 }
 
 class Square {
@@ -229,9 +254,9 @@ class Square {
 //////////////////////////////////////////////////////////////////
 
 class Piece {
-    constructor(rank, pos, color) {
+    constructor(pos, color) {
         this.id = null;
-        this.rank = rank;
+        this.rank = null;
         this.name = null;
         this.pos = pos;
         this.color = color;
@@ -260,6 +285,8 @@ class Marshal extends Piece {
         this.name = 'marshal';
         this.rank = 10;
     }
+
+
 }
 
 class General extends Piece {

@@ -1,4 +1,4 @@
-const Piece = require('./Piece.js');
+const Piece  = require('./Piece.js');
 const Square = require('./Square.js');
 const Player = require('./player.js');
 class Board {

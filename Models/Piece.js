@@ -1,4 +1,4 @@
-const Square = require('./square.js');
+const Square = require('./Square.js');
 
 class Piece {
     constructor(pos, color) {

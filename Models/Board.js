@@ -200,6 +200,7 @@ class Board {
     }
 
     setPiece(square, piece player){
+
         square.curr = piece;
         piece.pos = square.pos;
         piece.color = player.color;

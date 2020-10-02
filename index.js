@@ -14,3 +14,17 @@ const Scout      = require('./Models/scout.js');
 const Sergeant   = require('./Models/sergeant.js');
 const Spy        = require('./Models/spy.js');
 const Square     = require('./Models/Square.js');
+
+var newBoard = new Board;
+newBoard.setupGame();
+var boardClass = document.getElementByClass('boardClass');
+var tableAppend = "<table>";
+for(var i = 0; i<12; i++){
+    tableAppend += "<tr>";
+    for(var j = 0; j<10; j++){
+        tableAppend += "<td> </td>";
+    }
+    tableAppend += "</tr>";
+}
+tableAppend += "</table>";
+console.log(tableAppend);

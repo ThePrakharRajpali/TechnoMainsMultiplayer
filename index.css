@@ -1,0 +1,6 @@
+.boardClass{
+    border: 1px solid black;
+}
+ .boardClass > td {
+    border: 1px solid black;
+ }

@@ -16,7 +16,7 @@ class Board {
             player.livePieces.push(this.setPiece(square, piece, player));
         }
     }
-    // TODO: selectSquare, setPiece
+
     //INITIALIZING THE GAME
     setupGame(){
         for(var i=0; i<12; i++){
@@ -168,18 +168,14 @@ class Board {
                 this.move(curr, next);
                 console.log("We win");
                 return;
-            }
-
-
-            if( this.board[curr.x][curr.y].curr.rank /*our piece*/ > /*opponent piece*/ this.board[next.x][next.y].curr.rank ){
+            } else if( this.board[curr.x][curr.y].curr.rank /*our piece*/ > /*opponent piece*/ this.board[next.x][next.y].curr.rank ){
 
                 this.board[next.x][next.y].curr.isAlive = false;
                 this.board[next.x][next.y].curr = null;
                 this.move(curr, next);
                 console.log("We win");
 
-            } // we lose
-            else if (this.board[curr.x][curr.y].curr.rank < this.board[next.x][next.y].curr.rank){
+            } else if (this.board[curr.x][curr.y].curr.rank < this.board[next.x][next.y].curr.rank){
                 this.board[curr.x][curr.y].curr.isAlive = false;
                 this.board[curr.x][curr.y].curr = null;
                 console.log("We lose");

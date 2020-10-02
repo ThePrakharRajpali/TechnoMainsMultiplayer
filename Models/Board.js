@@ -3,7 +3,7 @@ const Square = require('./Square.js');
 const Player = require('./player.js');
 class Board {
     constructor(player1, player2) {
-        this.board = [];
+        this.board = []; //Used as a 2D array to store squares
         this.lakeArea = [];
         this.gameOn = true;
         this.player1 = player1;
@@ -32,12 +32,12 @@ class Board {
         console.log("Game set up done");
     }
 
-    addPiece(pos, piece){
+    addPiece(pos, piece){    //add "piece" piece to square on board co-ordinates "pos"
         this.board[pos.x][pos.y].addPiece(piece);
         console.log("Piece added to square");
     }
 
-    getFreePosition(pos){
+    getFreePosition(pos){   //Gets free squares around the the square on co-ordinates "pos"
         var right = false, left=false, up=false, down=false;
         if(pos.x < 9){
             right = this.board[pos.x + 1][pos.y].isFree();
@@ -59,7 +59,7 @@ class Board {
         return {right: right, left: left, up: up, down: down};
     }
 
-    move(pos, next){
+    move(pos, next){    //If the piece on the square with co-od "pos" is movable, move it to square with co-od "next" if free.
         //var piece = this.board[pos.x][pos.y].curr;
         if(this.board[pos.x][pos.y].curr.movable){
             if (   ( pos.x > next.x && this.getFreePosition(pos).left )
@@ -76,7 +76,7 @@ class Board {
     }
 
 
-    isOpponent(curr, next){
+    isOpponent(curr, next){    //curr and next are co-ods
         // For debugging
         if(this.board[next.x][next.y].curr.color !== this.board[curr.x][curr.y].curr.color){
             console.log("Enemy Spotted");
@@ -199,7 +199,8 @@ class Board {
         return square;
     }
 
-    setPiece(square, piece, player){
+    setPiece(square, piece player){
+
         square.curr = piece;
         piece.pos = square.pos;
         piece.color = player.color;

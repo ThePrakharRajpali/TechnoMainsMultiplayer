@@ -1,3 +1,6 @@
+const express    = require("express");
+const app        = express();
+
 const Board      = require('./Models/Board.js');
 const Bomb       = require('./Models/bomb.js');
 const Captain    = require('./Models/captain.js');
@@ -15,9 +18,10 @@ const Sergeant   = require('./Models/sergeant.js');
 const Spy        = require('./Models/spy.js');
 const Square     = require('./Models/Square.js');
 
+//alert("Connected");
 var newBoard = new Board;
 newBoard.setupGame();
-var boardClass = document.getElementByClass('boardClass');
+
 var tableAppend = "<table>";
 for(var i = 0; i<12; i++){
     tableAppend += "<tr>";
@@ -27,4 +31,12 @@ for(var i = 0; i<12; i++){
     tableAppend += "</tr>";
 }
 tableAppend += "</table>";
-console.log(tableAppend);
+
+
+app.get("/", (req, res) => {
+    res.send(tableAppend);
+});
+
+app.listen(3000, () => {
+    console.log("Server running");
+});

@@ -91,7 +91,7 @@ class Board {
     // TODO: change attack logic
     attack(curr, next){
 
-        if(this.board[next.x][next.y].isFree()){\
+        if(this.board[next.x][next.y].isFree()){
 
             console.log("Can't attack empty space");
 
@@ -192,14 +192,14 @@ class Board {
         }
     }
 
-    this.selectSquare(){
+    selectSquare(){
         //addelement using document
         // get pos:
         var square = this.board[pos.x][pos.y] ;
         return square;
     }
 
-    this.setPiece(square, piece player){
+    setPiece(square, piece, player){
         square.curr = piece;
         piece.pos = square.pos;
         piece.color = player.color;

@@ -1,3 +1,4 @@
+const Piece = require('./Piece.js');
 class Flag extends Piece {
     constructor(){
         super();

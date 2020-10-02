@@ -1,3 +1,4 @@
+const Piece = require('./Piece.js');
 class Spy extends Piece {
     constructor(){
         super();

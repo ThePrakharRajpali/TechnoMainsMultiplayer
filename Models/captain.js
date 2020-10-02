@@ -1,3 +1,4 @@
+const Piece = require('./Piece.js');
 class Captain extends Piece {
     constructor(){
         super();

@@ -1,3 +1,4 @@
+const Piece = require('./Piece.js');
 class Miner extends Piece {
     constructor(){
         super();

@@ -1,3 +1,4 @@
+const Piece = require('Piece.js');
 class Player {
     constructor(name, color) {
         this.name = name;

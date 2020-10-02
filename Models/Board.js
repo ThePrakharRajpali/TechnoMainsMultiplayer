@@ -1,3 +1,6 @@
+const Piece = require('./Piece.js');
+const Square = require('./Square.js');
+const Player = require('./player.js');
 class Board {
     constructor(player1, player2) {
         this.board = []; //Used as a 2D array to store squares

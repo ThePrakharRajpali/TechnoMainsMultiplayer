@@ -1,3 +1,5 @@
+const Board = require('./Board.js');
+const Piece = require('./Piece.js');
 class Square {
     constructor(x, y) {
         this.x = x;

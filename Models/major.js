@@ -1,3 +1,4 @@
+const Piece = require('./Piece.js');
 class Major extends Piece {
     constructor(){
         super();

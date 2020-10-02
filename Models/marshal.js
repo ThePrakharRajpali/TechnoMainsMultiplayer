@@ -1,3 +1,4 @@
+const Piece = require('./player.js');
 class Marshal extends Piece {
     constructor(){
         super();
